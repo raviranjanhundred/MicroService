@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.spring.microservices</groupId>
 	<artifactId>currrency-exchange-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>currrency-exchange-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -99,6 +99,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>raviranjanhundred/testmicroservice/${project.artifactId}:${project.version}</name>
+					</image>
+					<pullPolicy>IF_NOT_PRESENT</pullPolicy>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
