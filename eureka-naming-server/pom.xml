@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.spring.microservice.demo</groupId>
 	<artifactId>eureka-naming-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>eureka-naming-server</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -60,8 +60,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>raviranjanhundred/${project.artifactId}:${project.version}</name>
+					</image>
+					<pullPolicy>IF_NOT_PRESENT</pullPolicy>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+	
 
 </project>

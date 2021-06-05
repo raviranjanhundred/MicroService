@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring.microservice.demo</groupId>
-	<artifactId>netflix-zuul-api-gateway-server</artifactId>
+	<artifactId>springcloud-gatewayserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>netflix-zuul-api-gateway-server</name>
+	<name>springcloud-gatewayserver</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
@@ -74,6 +74,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>raviranjanhundred/${project.artifactId}:${project.version}</name>
+					</image>
+					<pullPolicy>IF_NOT_PRESENT</pullPolicy>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
