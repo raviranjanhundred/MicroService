@@ -1,8 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
   labels:
     app: currency-exchange
   name: currency-exchange
@@ -26,6 +24,8 @@ spec:
       - image: raviranjanhundred/currrency-exchange-service:2.0.1.kube
         imagePullPolicy: IfNotPresent
         name: currrency-exchange-service
+        ports:
+        - containerPort: 8080
         readinessProbe:
           httpGet:
             port: 8000
@@ -44,15 +44,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    cloud.google.com/neg: '{"ingress":true}'
   labels:
     app: currency-exchange
   name: currency-exchange
   namespace: default
 spec:
   ports:
-  - port: 8000
+  - port: 8080
     protocol: TCP
     targetPort: 8000
   selector:

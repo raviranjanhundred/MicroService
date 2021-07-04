@@ -1,8 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
   labels:
     app: currency-conversion
   name: currency-conversion
@@ -23,9 +21,17 @@ spec:
         app: currency-conversion
     spec:
       containers:
-      - image: raviranjanhundred/currency-conversion-service:2.0.2.kube
+      - image: raviranjanhundred/currency-conversion-service:2.0.3.kube
         imagePullPolicy: IfNotPresent
         name: currrency-exchange-service
+        readinessProbe:
+          httpGet:
+            port: 8100
+            path: /actuator/health/readiness
+        livenessProbe:
+          httpGet:
+            port: 8100
+            path: /actuator/health/liveness
         envFrom: 
           - configMapRef:
               name: currency-conversion
@@ -39,8 +45,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    cloud.google.com/neg: '{"ingress":true}'
   labels:
     app: currency-conversion
   name: currency-conversion
@@ -58,9 +62,10 @@ spec:
 ---
 
 apiVersion: v1
-data:
-  CURRENCY_EXCHANGE_URL: http://currency-exchange
 kind: ConfigMap
 metadata:
   name: currency-conversion
   namespace: default
+data:
+  CURRENCY_EXCHANGE_URL: http://currency-exchange
+  CURRENCY_EXCHANGE_PORT: "8080"

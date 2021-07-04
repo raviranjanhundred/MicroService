@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,9 @@ public class CurrencyConversionController {
 	
 	@Autowired
 	private CurrencyExchangeServiceProxy proxy;
+	
+	@Autowired
+	private Environment environment;
 
 	private Logger logger=LogManager.getLogger(this.getClass());
 
@@ -37,6 +41,15 @@ public class CurrencyConversionController {
 
 		response.setQuantity(quantity);
 		response.setTotalCalculatedAmount(response.getConversionMultiple().multiply(quantity));
+
+		String port=environment.getProperty("local.server.port");
+		
+		String host=environment.getProperty("HOSTNAME","");
+		String version="v2_2";
+		
+		response.setEnvironment(port+" "+version+" "+host);
+		
+		
 		return response;
 
 	}
@@ -51,6 +64,10 @@ public class CurrencyConversionController {
 
 		response.setQuantity(quantity);
 		response.setTotalCalculatedAmount(response.getConversionMultiple().multiply(quantity));
+		
+		
+		
+		
 		
 		logger.info("{}",response);
 		

@@ -11,9 +11,11 @@ public class CurrencyConversionBean {
 	private BigDecimal quantity;
 	private BigDecimal totalCalculatedAmount;
 	private String environment;
+	private String conversionEnvironMent;
+	
 
 	public CurrencyConversionBean(Long id, String from, String to, BigDecimal conversionMultiple, BigDecimal quantity,
-			BigDecimal totalCalculatedAmount, String environment) {
+			BigDecimal totalCalculatedAmount, String environment,String conversionEnvironMent) {
 		super();
 		this.id = id;
 		this.from = from;
@@ -22,6 +24,15 @@ public class CurrencyConversionBean {
 		this.quantity = quantity;
 		this.totalCalculatedAmount = totalCalculatedAmount;
 		this.environment = environment;
+		this.conversionEnvironMent=conversionEnvironMent;
+	}
+
+	public String getConversionEnvironMent() {
+		return conversionEnvironMent;
+	}
+
+	public void setConversionEnvironMent(String conversionEnvironMent) {
+		this.conversionEnvironMent = conversionEnvironMent;
 	}
 
 	public CurrencyConversionBean() {
